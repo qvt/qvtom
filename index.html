@@ -31,9 +31,9 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <p>QVTom is a prototypical implementation of the module system for model transformation languages described in [1]. It replaces the default structure of a QVTo transformation with the definition of interfaces and interface implementations where implementations can be linked to interfaces with an export or import relationship.</p>
+        <p>QVTom is a prototypical implementation of the module system for model transformation languages described in <a href="#references">[1]</a>. It replaces the default structure of a QVTo transformation with the definition of interfaces and interface implementations where implementations can be linked to interfaces with an export or import relationship.</p>
 
-<p>The changes that have been made to the QVTo plugin [2] are described in this document.</p>
+<p>The changes that have been made to the QVTo plugin <a href="#references">[2]</a> are described in this document.</p>
 
 <h1>
 <a name="changes-to-the-astcst" class="anchor" href="#changes-to-the-astcst"><span class="octicon octicon-link"></span></a>Changes to the AST/CST</h1>
@@ -43,14 +43,26 @@
 
 <p>Legend:</p>
 
-<h2>
-<a name="element-----------------------representation" class="anchor" href="#element-----------------------representation"><span class="octicon octicon-link"></span></a>Element                      | Representation</h2>
-
-<p>CST                          | <strong>CST: ...</strong>
-AST                          | <strong>AST: ...</strong>
-line number in QVTOParser.gi | <strong></strong></p>
-
-<pre><code>modeltype PCM uses 'http://sdq.ipd.uka.de/PalladioComponentModel/5.0';
+<table>
+<thead><tr>
+<th>Element</th>
+<th>Representation</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>CST</td>
+<td><strong>CST: ...</strong></td>
+</tr>
+<tr>
+<td>AST</td>
+<td><strong>AST: ...</strong></td>
+</tr>
+<tr>
+<td>line number in QVTOParser.gi</td>
+<td><strong>&lt;n&gt;</strong></td>
+</tr>
+</tbody>
+</table><pre><code>modeltype PCM uses 'http://sdq.ipd.uka.de/PalladioComponentModel/5.0';
 modeltype PCM_ALLOC uses 'http://sdq.ipd.uka.de/PalladioComponentModel/Allocation/5.0';
 modeltype PCM_REP uses 'http://sdq.ipd.uka.de/PalladioComponentModel/Repository/5.0';
 
@@ -348,15 +360,15 @@ module A mexport I_A {
 </ul><h1>
 <a name="references" class="anchor" href="#references"><span class="octicon octicon-link"></span></a>References</h1>
 
-<ul>
-<li>[1] A. Rentschler, D. Werle, Q. Noorshams, L. Happe, R. Reussner. <a href="http://dl.acm.org/citation.cfm?doid=2577080.2577094"><em>Designing Information Hiding Modularity for Model Transformation Languages</em></a>. Proceedings of the 13th International Conference on Modularity (AOSD '14), Lugano, Switzerland, April 2014. ACM, New York, NY, USA. April 2014.</li>
-<li>[2] <a href="http://www.eclipse.org/mmt/?project=qvto">Eclipse Modeling - MMT - Project QVTo</a>
-</li>
-</ul><h1>
+<ol>
+<li>A. Rentschler, D. Werle, Q. Noorshams, L. Happe, R. Reussner. <a href="http://dl.acm.org/citation.cfm?doid=2577080.2577094"><em>Designing Information Hiding Modularity for Model Transformation Languages</em></a>. Proceedings of the 13th International Conference on Modularity (AOSD '14), Lugano, Switzerland, April 2014. ACM, New York, NY, USA. April 2014.</li>
+<li><a href="http://www.eclipse.org/mmt/?project=qvto">Eclipse Modeling - MMT - Project QVTo</a></li>
+</ol><h1>
 <a name="contributors" class="anchor" href="#contributors"><span class="octicon octicon-link"></span></a>Contributors</h1>
 
 <ul>
-<li>Dominik Werle from Karlsruhe Institute of Technology</li>
+<li>
+<a href="mailto:dominik.werle_AtSignGoesHere_student.kit.edu">Dominik Werle</a> from Karlsruhe Institute of Technology</li>
 <li>
 <a href="http://sdq.ipd.kit.edu/people/andreas_rentschler/">Andreas Rentschler</a> from Karlsruhe Institute of Technology</li>
 </ul>
