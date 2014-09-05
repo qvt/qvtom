@@ -1,6 +1,6 @@
-QVTom is a prototypical implementation of the module system for model transformation languages described in [1]. It replaces the default structure of a QVTo transformation with the definition of interfaces and interface implementations where implementations can be linked to interfaces with an export or import relationship.
+QVTom is a prototypical implementation of the module system for model transformation languages described in [[1]](#references). It replaces the default structure of a QVTo transformation with the definition of interfaces and interface implementations where implementations can be linked to interfaces with an export or import relationship.
 
-The changes that have been made to the QVTo plugin [2] are described in this document.
+The changes that have been made to the QVTo plugin [[2]](#references) are described in this document.
 
 
 # Changes to the AST/CST
@@ -252,8 +252,8 @@ result = CompiledUnit [
 * [Xtend2m](http://qvt.github.io/xtend2m/), a modular extension of Xtend hosted at Github.
 
 # References
-* [1] A. Rentschler, D. Werle, Q. Noorshams, L. Happe, R. Reussner. [*Designing Information Hiding Modularity for Model Transformation Languages*](http://dl.acm.org/citation.cfm?doid=2577080.2577094). Proceedings of the 13th International Conference on Modularity (AOSD '14), Lugano, Switzerland, April 2014. ACM, New York, NY, USA. April 2014.
-* [2] [Eclipse Modeling - MMT - Project QVTo](http://www.eclipse.org/mmt/?project=qvto)
+1. A. Rentschler, D. Werle, Q. Noorshams, L. Happe, R. Reussner. [*Designing Information Hiding Modularity for Model Transformation Languages*](http://dl.acm.org/citation.cfm?doid=2577080.2577094). Proceedings of the 13th International Conference on Modularity (AOSD '14), Lugano, Switzerland, April 2014. ACM, New York, NY, USA. April 2014.
+2. [Eclipse Modeling - MMT - Project QVTo](http://www.eclipse.org/mmt/?project=qvto)
 
 # Contributors
 * [Dominik Werle](mailto:dominik.werle_AtSignGoesHere_student.kit.edu) from Karlsruhe Institute of Technology
