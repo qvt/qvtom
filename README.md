@@ -7,11 +7,12 @@ The changes that have been made to the QVTo plugin [2] are described in this doc
 
 ## Changes to the meta models
 Legend:
-Element                      | Representation
-----------------------------------------------
-CST	                         | **CST: ...**
-AST	                         | **AST: ...**
-line number in QVTOParser.gi | **<n>**
+
+Element                       |  Representation
+----------------------------- | ----------------
+CST	                      |  **CST: ...**
+AST	                      |  **AST: ...**
+line number in QVTOParser.gi  |  **\<n\>**
 
 ```
 modeltype PCM uses 'http://sdq.ipd.uka.de/PalladioComponentModel/5.0';
@@ -255,5 +256,5 @@ result = CompiledUnit [
 * [2] [Eclipse Modeling - MMT - Project QVTo](http://www.eclipse.org/mmt/?project=qvto)
 
 # Contributors
-* [Dominik Werle](emailto:dominik.werle_AtSignGoesHere_student.kit.edu) from Karlsruhe Institute of Technology
+* [Dominik Werle](mailto:dominik.werle_AtSignGoesHere_student.kit.edu) from Karlsruhe Institute of Technology
 * [Andreas Rentschler] (http://sdq.ipd.kit.edu/people/andreas_rentschler/) from Karlsruhe Institute of Technology
