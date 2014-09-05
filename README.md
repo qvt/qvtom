@@ -65,6 +65,7 @@ module Sink mexport ISink
 	
 	**<851> - implementations of mapping/helper methods: mapping_def / entry_def / helper_simple_def / helper_compund_def, Klassen: MappingMethodCS, MappingQueryCS, ModulePropertyCS**
 }
+```
 
 ## Changes to the grammar QVTOParser.gi
 ```
