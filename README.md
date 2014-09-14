@@ -278,6 +278,7 @@ It is already possible to connect multiple transformations by an import mechanis
 
 # Workflow of the QVTo(m) parser and interpreter
 <img src="http://dwerle.github.io/qvtom/images/Workflow.png" />
+
 Image after <em>Erweitern eines Code-Editors unter Eclipse um neue Sprachkonzepte</em> by Ivayla Partalina.
 
 ## Plugins/Packages/Classes
