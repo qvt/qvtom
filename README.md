@@ -20,14 +20,14 @@ modeltype PCM_REP uses <em>'http://sdq.ipd.uka.de/PalladioComponentModel/Reposit
 
 compilation_environment <em>"Commons"</em>;
   <b>CST: CompilationEnvironmentCS[uriCS = "Commons"] <547></b>
-compilation_environment <em>"EventChannelMiddlewareRegistry";
+compilation_environment <em>"EventChannelMiddlewareRegistry"</em>;
 compilation_environment <em>"EventDistribution"</em>;
 compilation_environment <em>"EventFilter"</em>;
 ...
 
 interface ISink( 
 	inout pcmAllocation : PCM_ALLOC,
-    <b>CST: InterfaceInOutParamCS[param = ParameterDeclarationCS[simpleNameCS = "pcmAllocation", typeSpecCS = PCM_ALLOC, directionKind = inout]]**
+    <b>CST: InterfaceInOutParamCS[param = ParameterDeclarationCS[simpleNameCS = "pcmAllocation", typeSpecCS = PCM_ALLOC, directionKind = inout]]**</b>
     <b>AST: InterfaceRestrictionParameter[param = VarParameter[parsed by original parser]]</b>
 	inout pcmSystem : PCM_SYS, 
 	inout pcmRepository : PCM_REP,
