@@ -1,11 +1,13 @@
+# QVTom
+
 QVTom is a prototypical implementation of the module system for model transformation languages described in [[1]](#references). It replaces the default structure of a QVTo transformation with the definition of interfaces and interface implementations where implementations can be linked to interfaces with an export or import relationship.
 
 The changes that have been made to the QVTo plugin [[2]](#references) are described in this document.
 
 
-# Changes to the AST/CST
+## Changes to the AST/CST
 
-## Changes to the meta models
+### Changes to the meta models
 Legend:
 
 Element                       |  Representation
@@ -67,7 +69,7 @@ module Sink mexport ISink
 }
 </pre>
 
-## Changes to the grammar QVTOParser.gi
+### Changes to the grammar QVTOParser.gi
 <pre>%Globals
 	/.	
 	<em>[...]</em>
@@ -156,13 +158,13 @@ module Sink mexport ISink
 	scoped_identifier2 ::= IDENTIFIER '@' IDENTIFIER
 %End</pre>
 
-## The new metamodels
-### AST
+### The new metamodels
+#### AST
 <a href="http://dwerle.github.io/qvtom/images/QVTOperationalAST.png"><img src="http://dwerle.github.io/qvtom/images/QVTOperationalAST_thumb.png" alt="AST metamodel" /></a>
-### CST
+#### CST
 <a href="http://dwerle.github.io/qvtom/images/QVTOperationalCST.png"><img src="http://dwerle.github.io/qvtom/images/QVTOperationalCST_thumb.png" alt="CST metamodel" /></a>
 
-## How to include new elements into the CST/AST
+### How to include new elements into the CST/AST
 0. Once: adapt "/org.eclipse.m2m.qvt.oml.cst.parser/cst/run-lpg.cmd" (LPG_HOME, LPG_EXE, PERL_EXE)
   * Warning: spaces in path names can lead to problems
 1. Augment CST and AST metamodels, generate Java code.
@@ -177,7 +179,7 @@ module Sink mexport ISink
 5. If top level elements have been created (such as ModuleImplementation/ModuleInterface/CompilationEnvironment), add them to `org.eclipse.m2m.internal.qvt.oml.cst.parser.AbstractQVTParser.setupTopLevel(EList<CSTNode>)`
 
 
-## Changes to the CST (/org.eclipse.m2m.qvt.oml.cst.parser/model/QVTOperationalCST.ecore)
+### Changes to the CST (/org.eclipse.m2m.qvt.oml.cst.parser/model/QVTOperationalCST.ecore)
 * Changes to UnitCS
   * Reference to `ModuleImplementations` and `ModuleInterfaces`
 * New: ModuleHeaderCS
@@ -190,7 +192,7 @@ module Sink mexport ISink
 * New: CompilationEnvironmentCS
   * Only references the name of a part of the "Compilation Environment", i.e. all files that have to be compiled together.
 
-## Changes to the AST (/org.eclipse.m2m.qvt.oml/model/QVTOperational.ecore)
+### Changes to the AST (/org.eclipse.m2m.qvt.oml/model/QVTOperational.ecore)
 * New: ModuleInterface
   * Interface of a module, defines in/out/inout metamodels, visibility of the metamodel and method signatures
 * New: InterfaceInOutParameter
@@ -200,7 +202,7 @@ module Sink mexport ISink
 * New: ModuleImplementation
   * Implementation of a module, exports at least one interface and has to implement at least the methods of the exported interface(s).
 
-## org.eclipse.m2m.internal.qvt.oml.compiler.QVTOCompiler
+### org.eclipse.m2m.internal.qvt.oml.compiler.QVTOCompiler
 The entry point for the changes from QVTo to QVTom start in `org.eclipse.m2m.internal.qvt.oml.compiler.QVTOCompiler` in the method `doCompileQVTom`, which replaces `doCompileQVTo`. For the compilation of QVTom in multiple files the following stages are performed:
 
 1. Parse all files that are declared as part of the "Compilation Environment" in the file.
@@ -209,34 +211,34 @@ The entry point for the changes from QVTo to QVTom start in `org.eclipse.m2m.int
 4. Compile (CST -> AST) every imported file.
 5. Perform a transformation of the resulting QVTom-ASTs to a QVTO-AST which can be interpreted/compiled with the default interpreter/compiler.
 
-## org.eclipse.m2m.internal.qvt.oml.qvtom2qvto.QVTom2QVToCSTransformation
+### org.eclipse.m2m.internal.qvt.oml.qvtom2qvto.QVTom2QVToCSTransformation
 The linking of method calls etc. is already performed during the compilation. For the transformation from QVTom to QVTo the following steps have to be performed:
 
 1. Copy all methods from the module interfaces and module implementations to a new `OperationalTransformation`.
 2. Copy in/out/inout parameters to the new transformation.
 3. Create properties from the modules in the new transformation.
 
-## Changes to org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS
+### Changes to org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS
 Was modified to be able to handle the new syntax elements.
 
-### lookupModelParameter(SimpleNameCS, DirectionKind, QvtOperationalEnv)
+#### lookupModelParameter(SimpleNameCS, DirectionKind, QvtOperationalEnv)
 Allows the referencing of `ModelParameter`s that are declared in the interface, i.e. the parsed parameters from the `ModuleInterface` which are `InterfaceInOutParameter`s are made referenceable.
 
-### QvtOperationalVisitorCS.genOperationCallExp(…)
+#### QvtOperationalVisitorCS.genOperationCallExp(...)
 If no local mapping can be found, check if a fitting method can be found in an imported module. For this purpose traverse upwards in the environment hierarchy until a fitting environment (of type `QvtOperationalFileEnv`) has been found and check if one of the imported interfaces implements a fitting method.
 
-### visitMappingDeclarationCS(MappingMethodCS, QvtOperationalModuleEnv, ImperativeOperation)
+#### visitMappingDeclarationCS(...)
 Check the visibility of the context types of the mappings.
 
-### visitResolveInExpCS(ResolveInExpCS, QvtOperationalEnv)
+#### visitResolveInExpCS(...)
 Allow the resolution of methods in the same `ModuleImplementation` or in imported interfaces.
 
-## New methods for modularity in QvtOperationalVisitorCS
+### New methods for modularity in QvtOperationalVisitorCS
 
-### registerModelTypes(Module, EList<ModelTypeCS>, QvtOperationalFileEnv)
+#### registerModelTypes(...)
 Helper method that is used by `visitModuleInterface`and `visitModuleImplementation`. Parses the used `ModelType`s (`visitModelTypeCS`) and references them in the created Module (`getUsedModelType().add(...)`), adds them as types to the module (`.getEClassifiers().add(...)`) and register them in the environment.
 
-### visitModuleInterface(ModuleInterfaceCS, QvtOperationalFileEnv)
+#### visitModuleInterface(...)
 Visitor method for `ModuleInterface`s, comparable to the visitor methods for methods.
 
 1. Register `ModelType`s in the environment.
@@ -244,13 +246,13 @@ Visitor method for `ModuleInterface`s, comparable to the visitor methods for met
 3. Visit and reference `InOutParameters`and `RestrictionParameter`s.
 4. Visit all `MappingDeclaration`s for methods and reference results.
 
-### visitInOutParamsCS(ModuleInterfaceCS, QvtOperationalFileEnv)
+#### visitInOutParamsCS(...)
 Visitor methods for `InOutParameter`s.
 
-### visitRestrictionParamsCS(ModuleInterfaceCS, QvtOperationalFileEnv)
+#### visitRestrictionParamsCS(...)
 Visitor method for `RestrictionParam`s. All types are resolved and checked for containment of the package that is to be restricted.
 
-### visitModuleImplementation(ModuleImplementationCS, QvtOperationalFileEnv)
+#### visitModuleImplementation(...)
 Visitor method for `ModelImplementation`s.
 
 1. Register `ModelType`s in the environment
@@ -271,47 +273,47 @@ Visitor method for `ModelImplementation`s.
    5. Export the methods to the interface, cf. `exportMethodsToInterface(...)``
 8. Pass the errors from the module environment to the parent environment to make them visible in the IDE.
 
-### exportMethodsToInterface(Collection<ModuleInterface>, QvtOperationalEnv, HashMap<MappingMethodCS, ImperativeOperation>)
+#### exportMethodsToInterface(...)
 In our implementation the method bodies are copied into the interface after the methods are visited (i.e. they are not referenced). We chose this seemingly complicated implementation to allow our modifications to be as non-invasive as possible and to allow the visitor methods for the mappings to perform unchanged.
 
 This method also checks the exported interfaces for complete implementation in the `ModuleImplementation` and reports errors if necessary.
 
-# Meta model visibility validation
+## Meta model visibility validation
 The validation of the meta model visibility is realized in two new classes which are explained below. The entry point into the validation can be found in two places:
 * `org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS.validateMethodMetaModelVisibility(ModuleImplementation, QvtOperationalEnv)`
 * `QvtOperationalVisitorCS.visitMappingDeclaration(…)`
 
-## OCLRestrictedTypeVisitor
+### OCLRestrictedTypeVisitor
 Is created with a `TypeRestrictionSet`or a `ModuleImplementation`. When passing a `ModuleImplementation` the appropriate `.buildFromInterface` method of the `TypeRestrictionSet` is called.
 
 The visitor itself extends `OCLAbstractVisitor`. Every possible violation of the meta model visibility can be checked and annotated with an appropriate error or warning if necessary.
 
-## TypeRestrictionSet
+### TypeRestrictionSet
 Represents a set of types and packages that are accessible for a particular direction (`DirectionKind`) and possibly for a particular extent.
 
-# QVTo(m)-Environments
+## QVTo(m)-Environments
 Environments are created but not mandatorily persited. They can be used solely for the `QVTOperationalVisitorCS` and discarded afterwards.
 * `org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS.visitObjectExpCS(ObjectExpCS, QvtOperationalEnv, boolean)` -- creates a temporary environment.
 * `org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS.visitModuleImplementation(ModuleImplementationCS, QvtOperationalFileEnv)` -- create a temporary environent for the module so the parsed methods from different modules in the same file context do not interfere.
 
-## org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnv
+### org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnv
 * `org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnv.registerMappingOperation(MappingOperation, boolean)`
   * Copy of the equally named method without the boolean parameter. Makes it possible to prevent the registration in the parent environment.
 * Additional attributes for the `ModuleImplementation`s and `ModuleInterface`s with respective getters and setters.
 * Additional attribute of type `EntryOperation` which represents the entry point for the execution of the transformation.
 
-## org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalModuleEnv, org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalFileEnv
+### org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalModuleEnv, org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalFileEnv
 * Concrete subtypes which allow the getting/setting of `ModuleImplementation`s and `ModuleInterface`s.
 
-# Import mechanism of QVTo and QVTom
+## Import mechanism of QVTo and QVTom
 It is already possible to connect multiple transformations by an import mechanism in QVTo. Details for this mechanism can be found in the QVT standard.
 
-# Workflow of the QVTo(m) parser and interpreter
+## Workflow of the QVTo(m) parser and interpreter
 <img src="http://dwerle.github.io/qvtom/images/Workflow.png" />
 
 Image after <em>Erweitern eines Code-Editors unter Eclipse um neue Sprachkonzepte</em> by Ivayla Partalina.
 
-## Plugins/Packages/Classes
+### Plugins/Packages/Classes
 * org.eclipse.m2m.qvt.oml
   * org.eclipse.m2m.internal.qvt.oml.ast.env
     * definiert die benutzten Environments
@@ -334,8 +336,8 @@ Image after <em>Erweitern eines Code-Editors unter Eclipse um neue Sprachkonzept
 * org.eclipse.m2m.qvt.oml.runtime.ui
 
 
-# Example for parsing and environments
-## Source code
+## Example for parsing and environments
+### Source code
 ```
 modeltype ECORE uses 'http://www.eclipse.org/emf/2002/Ecore';
 modeltype UML uses 'http://www.eclipse.org/uml2/4.0.0/UML';
@@ -354,7 +356,7 @@ module A mexport I_A {
 }
 ```
 
-## Partial dump of the resulting CompiledUnit
+### Partial dump of the resulting CompiledUnit
 ```
 result = CompiledUnit [
   moduleEnvs = [
@@ -378,14 +380,14 @@ result = CompiledUnit [
 ]
 ```
 
-# See Also
+## See Also
 * [Modular Model Transformations](https://sdqweb.ipd.kit.edu/wiki/Modular_Model_Transformations), the overall approach behind this project, as well as information for developers.
 * [Xtend2m](http://qvt.github.io/xtend2m/), a modular extension of Xtend hosted at Github.
 
-# References
+## References
 1. A. Rentschler, D. Werle, Q. Noorshams, L. Happe, R. Reussner. [*Designing Information Hiding Modularity for Model Transformation Languages*](http://dl.acm.org/citation.cfm?doid=2577080.2577094). Proceedings of the 13th International Conference on Modularity (AOSD '14), Lugano, Switzerland, April 2014. ACM, New York, NY, USA. April 2014.
 2. [Eclipse Modeling - MMT - Project QVTo](http://www.eclipse.org/mmt/?project=qvto)
 
-# Contributors
+## Contributors
 * [Dominik Werle](mailto:dominik.werle_AtSignGoesHere_student.kit.edu) from Karlsruhe Institute of Technology
 * [Andreas Rentschler] (http://sdq.ipd.kit.edu/people/andreas_rentschler/) from Karlsruhe Institute of Technology
