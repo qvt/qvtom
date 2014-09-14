@@ -14,43 +14,42 @@ CST	                      |  **CST: ...**
 AST	                      |  **AST: ...**
 line number in QVTOParser.gi  |  **\<n\>**
 
-```
-modeltype PCM uses 'http://sdq.ipd.uka.de/PalladioComponentModel/5.0';
-modeltype PCM_ALLOC uses 'http://sdq.ipd.uka.de/PalladioComponentModel/Allocation/5.0';
-modeltype PCM_REP uses 'http://sdq.ipd.uka.de/PalladioComponentModel/Repository/5.0';
+<pre>modeltype PCM uses <em>'http://sdq.ipd.uka.de/PalladioComponentModel/5.0'</em>;
+modeltype PCM_ALLOC uses <em>'http://sdq.ipd.uka.de/PalladioComponentModel/Allocation/5.0'</em>;
+modeltype PCM_REP uses <em>'http://sdq.ipd.uka.de/PalladioComponentModel/Repository/5.0'</em>;
 
-compilation_environment "Commons";
-  **CST: CompilationEnvironmentCS[uriCS = "Commons"] <547>**
-compilation_environment "EventChannelMiddlewareRegistry";
-compilation_environment "EventDistribution";
-compilation_environment "EventFilter";
+compilation_environment <em>"Commons"</em>;
+  <b>CST: CompilationEnvironmentCS[uriCS = "Commons"] <547></b>
+compilation_environment <em>"EventChannelMiddlewareRegistry";
+compilation_environment <em>"EventDistribution"</em>;
+compilation_environment <em>"EventFilter"</em>;
 ...
 
 interface ISink( 
 	inout pcmAllocation : PCM_ALLOC,
-    **CST: InterfaceInOutParamCS[param = ParameterDeclarationCS[simpleNameCS = "pcmAllocation", typeSpecCS = PCM_ALLOC, directionKind = inout]]**
-    **AST: InterfaceRestrictionParameter[param = VarParameter[parsed by original parser]]**
+    <b>CST: InterfaceInOutParamCS[param = ParameterDeclarationCS[simpleNameCS = "pcmAllocation", typeSpecCS = PCM_ALLOC, directionKind = inout]]**
+    <b>AST: InterfaceRestrictionParameter[param = VarParameter[parsed by original parser]]</b>
 	inout pcmSystem : PCM_SYS, 
 	inout pcmRepository : PCM_REP,
 	in middlewareRepository : PCM_REP;
 	
 	in PCM_ALLOC[Allocation]
-	  **CST: InterfaceRestrictionParamCS[param = PCM_ALLOC, classes = {Allocation::TypeSpecCS}, packages = {}] <780>**
-	  **AST: InterfaceRestrictionParameter**
+	  <b>CST: InterfaceRestrictionParamCS[param = PCM_ALLOC, classes = {Allocation::TypeSpecCS}, packages = {}] <780></b>
+	  <b>AST: InterfaceRestrictionParameter</b>
 )
-  **AST: InterfaceParamsCS[…] <680>**
-  **AST: ModuleHeaderCS[pathNameCS="ISink", interfaceInOutParamsCS=..., interfaceRestrictionParamsCS=...] <581>**
+  <b>AST: InterfaceParamsCS[…] <680></b>
+  <b>AST: ModuleHeaderCS[pathNameCS="ISink", interfaceInOutParamsCS=..., interfaceRestrictionParamsCS=...] <581></b>
 {
 	mapping Sink_createSinkOperationProvidedRole(sinkComponent : pcm::repository::RepositoryComponent,
 	                                             operationInterface : pcm::repository::OperationInterface) : pcm::repository::OperationProvidedRole;
-    **<830> - declarations: mapping_decl / helper_decl, Klassen: MappingRuleCS, MappingDeclarationCS (with setBlackbox(true));**
+    <b><830> - declarations: mapping_decl / helper_decl, Klassen: MappingRuleCS, MappingDeclarationCS (with setBlackbox(true));</b>
 }
-**AST: ModuleInterfaceCS[methods = ..., moduleHeader = ..., metamodels = ModelTypes aus Parametern]**
-**CST: ModuleInterface**
+<b>AST: ModuleInterfaceCS[methods = ..., moduleHeader = ..., metamodels = ModelTypes aus Parametern]</b>
+</b>CST: ModuleInterface<b>
 
  
 module Sink mexport ISink
-  **AST: ModuleHeaderCS, ExportCS[pathNameCS = "ISink"] <581>**
+  <b>AST: ModuleHeaderCS, ExportCS[pathNameCS = "ISink"] <581></b>
 {
 	mimport ISEFFRegistry;  
 	mimport ISEFFUtil;
@@ -59,20 +58,19 @@ module Sink mexport ISink
 		
 	mapping Sink_createSinkOperationProvidedRole(sinkComponent : pcm::repository::RepositoryComponent,
 	                                             operationInterface : pcm::repository::OperationInterface) : pcm::repository::OperationProvidedRole {
-			entityName := operationInterface.entityName+'OperationProvidedRole'+Commons_getUniqueElementNameSuffix();
+			entityName := operationInterface.entityName+<em>'OperationProvidedRole'</em>+Commons_getUniqueElementNameSuffix();
 			providingEntity_ProvidedRole := sinkComponent;
 			providedInterface__OperationProvidedRole := operationInterface;
 	}
 	
-	**<851> - implementations of mapping/helper methods: mapping_def / entry_def / helper_simple_def / helper_compund_def, Klassen: MappingMethodCS, MappingQueryCS, ModulePropertyCS**
+	<b><851> - implementations of mapping/helper methods: mapping_def / entry_def / helper_simple_def / helper_compund_def, Klassen: MappingMethodCS, MappingQueryCS, ModulePropertyCS</b>
 }
-```
+</pre>
 
 ## Changes to the grammar QVTOParser.gi
-```
-%Globals
+<pre>%Globals
 	/.	
-	[...]
+	<em>[...]</em>
 	import org.eclipse.m2m.internal.qvt.oml.cst.ModuleHeaderCS;
 	import org.eclipse.m2m.internal.qvt.oml.cst.MappingMethodCS;
 	import org.eclipse.m2m.internal.qvt.oml.cst.InterfaceInOutParamCS;
@@ -82,7 +80,7 @@ module Sink mexport ISink
 %End
 
 %KeyWords
-	[...]
+	<em>[...]</em>
 	module
 	interface
 	mimport
@@ -93,7 +91,7 @@ module Sink mexport ISink
 
 
 %Rules
-	[...]
+	<em>[...]</em>
 	unit_element -> compilation_env
 	
 	compilation_env ::= compilation_environment uri ';'
@@ -133,18 +131,18 @@ module Sink mexport ISink
 	typespecList ::= typespec
 	typespecList ::= typespecList ',' typespec
 	
-	-- returns a MappingRuleCS
+	<em>-- returns a MappingRuleCS</em>
 	interfaceElement -> mapping_decl
-	-- returns a MappingQueryCS
+	<em>-- returns a MappingQueryCS</em>
 	interfaceElement -> helper_decl
 	
 	interfaceList ::= interfaceList interfaceElement
 	interfaceList ::= interfaceElement
 
-	-- return a MappingMethodCS
+	<em>-- return a MappingMethodCS</em>
 	declarationItem -> mapping_def
 	declarationItem -> entry_def
-	-- return a MappingQueryCS->MappingMethodCS
+	<em>-- return a MappingQueryCS->MappingMethodCS</em>
 	declarationItem -> helper_simple_def
 	declarationItem -> helper_compound_def
 	
@@ -153,11 +151,10 @@ module Sink mexport ISink
 	declarationList ::= declarationList declarationItem
 	declarationList ::= declarationItem
 	
-	-- changed code ---
+	<em>-- changed code ---</em>
 	scoped_identifier ::= scoped_identifier2
 	scoped_identifier2 ::= IDENTIFIER '@' IDENTIFIER
-%End
-```
+%End</pre>
 
 ## The new metamodels
 ### AST
