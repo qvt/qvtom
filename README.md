@@ -49,7 +49,7 @@ interface ISink(
 
  
 module Sink mexport ISink
-  <b>AST: ModuleHeaderCS, ExportCS[pathNameCS = "ISink"] &lt;581&gt;</b>
+<b>AST: ModuleHeaderCS, ExportCS[pathNameCS = "ISink"] &lt;581&gt;</b>
 {
 	mimport ISEFFRegistry;  
 	mimport ISEFFUtil;
@@ -219,32 +219,62 @@ The linking of method calls etc. is already performed during the compilation. Fo
 ## Changes to org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS
 Was modified to be able to handle the new syntax elements.
 
-### org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS.lookupModelParameter(SimpleNameCS, DirectionKind, QvtOperationalEnv)
+### lookupModelParameter(SimpleNameCS, DirectionKind, QvtOperationalEnv)
 Allows the referencing of `ModelParameter`s that are declared in the interface, i.e. the parsed parameters from the `ModuleInterface` which are `InterfaceInOutParameter`s are made referenceable.
 
-### org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS.genOperationCallExp(…)
+### QvtOperationalVisitorCS.genOperationCallExp(…)
 If no local mapping can be found, check if a fitting method can be found in an imported module. For this purpose traverse upwards in the environment hierarchy until a fitting environment (of type `QvtOperationalFileEnv`) has been found and check if one of the imported interfaces implements a fitting method.
 
-### org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS.visitMappingDeclarationCS(MappingMethodCS, QvtOperationalModuleEnv, ImperativeOperation)
+### visitMappingDeclarationCS(MappingMethodCS, QvtOperationalModuleEnv, ImperativeOperation)
 Check the visibility of the context types of the mappings.
 
-### org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS.visitResolveInExpCS(ResolveInExpCS, QvtOperationalEnv)
+### visitResolveInExpCS(ResolveInExpCS, QvtOperationalEnv)
 Allow the resolution of methods in the same `ModuleImplementation` or in imported interfaces.
 
-## New methods for modularity
+## New methods for modularity in QvtOperationalVisitorCS
 
-### org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS.registerModelTypes(Module, EList<ModelTypeCS>, QvtOperationalFileEnv)
+### registerModelTypes(Module, EList<ModelTypeCS>, QvtOperationalFileEnv)
 Helper method that is used by `visitModuleInterface`and `visitModuleImplementation`. Parses the used `ModelType`s (`visitModelTypeCS`) and references them in the created Module (`getUsedModelType().add(...)`), adds them as types to the module (`.getEClassifiers().add(...)`) and register them in the environment.
 
-### org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS.visitModuleInterface(ModuleInterfaceCS, QvtOperationalFileEnv)
+### visitModuleInterface(ModuleInterfaceCS, QvtOperationalFileEnv)
 Visitor method for `ModuleInterface`s, comparable to the visitor methods for methods.
+
 1. Register `ModelType`s in the environment.
 2. Register the `ModelInterface` in the environment.
 3. Visit and reference `InOutParameters`and `RestrictionParameter`s.
 4. Visit all `MappingDeclaration`s for methods and reference results.
 
-### org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS.visitInOutParamsCS(ModuleInterfaceCS, QvtOperationalFileEnv)
+### visitInOutParamsCS(ModuleInterfaceCS, QvtOperationalFileEnv)
 Visitor methods for `InOutParameter`s.
+
+### visitRestrictionParamsCS(ModuleInterfaceCS, QvtOperationalFileEnv)
+Visitor method for `RestrictionParam`s. All types are resolved and checked for containment of the package that is to be restricted.
+
+### visitModuleImplementation(ModuleImplementationCS, QvtOperationalFileEnv)
+Visitor method for `ModelImplementation`s.
+
+1. Register `ModelType`s in the environment
+2. Create `ModelImplementation` and register it in the enviroinment.
+3. Create a new module environment ("moduleEnv") which encapsulates the contained methods and represents the module.
+   * This is necessary to allow the free distribution of the interfaces and implementations to multiple files.
+   * Imported interfaces and variables for used meta models are saved in the interface.
+4. Create properties (`createModuleImplementationProperties`)
+5. Resolve exports (`resolveExports`), i.e. resolve and reference each interface that is declared as export.
+6. Resolve imports, i.e. resolve and reference each interface that is declared as import.
+7. Pass through all contained methods
+   1. Register contained method in `moduleEnv` (cf. `visitMappingModule`), i.e. create empty methods that can be referenced.
+   2. Visit methods (references to empty methods are resolvable).
+   3. Check if visibility declarations are violated.
+      * `validateMethodMetaModelVisibility(ModuleImplementation, QvtOperationalEnv)`
+      * `OCLRestrictedTypeVisitor(ModuleImplementation, QvtOperationalEnv)`
+   4. Set entry operation
+   5. Export the methods to the interface, cf. `exportMethodsToInterface(...)``
+8. Pass the errors from the module environment to the parent environment to make them visible in the IDE.
+
+### exportMethodsToInterface(Collection<ModuleInterface>, QvtOperationalEnv, HashMap<MappingMethodCS, ImperativeOperation>)
+In our implementation the method bodies are copied into the interface after the methods are visited (i.e. they are not referenced). We chose this seemingly complicated implementation to allow our modifications to be as non-invasive as possible and to allow the visitor methods for the mappings to perform unchanged.
+
+This method also checks the exported interfaces for complete implementation in the `ModuleImplementation` and reports errors if necessary.
 
 # Meta model visibility validation
 The validation of the meta model visibility is realized in two new classes which are explained below. The entry point into the validation can be found in two places:
