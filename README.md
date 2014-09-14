@@ -19,7 +19,7 @@ modeltype PCM_ALLOC uses <em>'http://sdq.ipd.uka.de/PalladioComponentModel/Alloc
 modeltype PCM_REP uses <em>'http://sdq.ipd.uka.de/PalladioComponentModel/Repository/5.0'</em>;
 
 compilation_environment <em>"Commons"</em>;
-  <b>CST: CompilationEnvironmentCS[uriCS = "Commons"] <547></b>
+<b>CST: CompilationEnvironmentCS[uriCS = "Commons"] <547></b>
 compilation_environment <em>"EventChannelMiddlewareRegistry"</em>;
 compilation_environment <em>"EventDistribution"</em>;
 compilation_environment <em>"EventFilter"</em>;
@@ -27,29 +27,29 @@ compilation_environment <em>"EventFilter"</em>;
 
 interface ISink( 
 	inout pcmAllocation : PCM_ALLOC,
-    <b>CST: InterfaceInOutParamCS[param = ParameterDeclarationCS[simpleNameCS = "pcmAllocation", typeSpecCS = PCM_ALLOC, directionKind = inout]]**</b>
+    <b>CST: InterfaceInOutParamCS[param = ParameterDeclarationCS[simpleNameCS = "pcmAllocation", typeSpecCS = PCM_ALLOC, directionKind = inout]]</b>
     <b>AST: InterfaceRestrictionParameter[param = VarParameter[parsed by original parser]]</b>
 	inout pcmSystem : PCM_SYS, 
 	inout pcmRepository : PCM_REP,
 	in middlewareRepository : PCM_REP;
 	
 	in PCM_ALLOC[Allocation]
-	  <b>CST: InterfaceRestrictionParamCS[param = PCM_ALLOC, classes = {Allocation::TypeSpecCS}, packages = {}] <780></b>
+	  <b>CST: InterfaceRestrictionParamCS[param = PCM_ALLOC, classes = {Allocation::TypeSpecCS}, packages = {}] &lt;780&gt;</b>
 	  <b>AST: InterfaceRestrictionParameter</b>
 )
   <b>AST: InterfaceParamsCS[…] <680></b>
-  <b>AST: ModuleHeaderCS[pathNameCS="ISink", interfaceInOutParamsCS=..., interfaceRestrictionParamsCS=...] <581></b>
+  <b>AST: ModuleHeaderCS[pathNameCS="ISink", interfaceInOutParamsCS=..., interfaceRestrictionParamsCS=...] &lt;581&gt;</b>
 {
 	mapping Sink_createSinkOperationProvidedRole(sinkComponent : pcm::repository::RepositoryComponent,
 	                                             operationInterface : pcm::repository::OperationInterface) : pcm::repository::OperationProvidedRole;
-    <b><830> - declarations: mapping_decl / helper_decl, Klassen: MappingRuleCS, MappingDeclarationCS (with setBlackbox(true));</b>
+    <b>&lt;830&gt; - declarations: mapping_decl / helper_decl, Klassen: MappingRuleCS, MappingDeclarationCS (with setBlackbox(true));</b>
 }
 <b>AST: ModuleInterfaceCS[methods = ..., moduleHeader = ..., metamodels = ModelTypes aus Parametern]</b>
 </b>CST: ModuleInterface<b>
 
  
 module Sink mexport ISink
-  <b>AST: ModuleHeaderCS, ExportCS[pathNameCS = "ISink"] <581></b>
+  <b>AST: ModuleHeaderCS, ExportCS[pathNameCS = "ISink"] &lt;581&gt;</b>
 {
 	mimport ISEFFRegistry;  
 	mimport ISEFFUtil;
@@ -63,7 +63,7 @@ module Sink mexport ISink
 			providedInterface__OperationProvidedRole := operationInterface;
 	}
 	
-	<b><851> - implementations of mapping/helper methods: mapping_def / entry_def / helper_simple_def / helper_compund_def, Klassen: MappingMethodCS, MappingQueryCS, ModulePropertyCS</b>
+	<b>&lt;851&gt; - implementations of mapping/helper methods: mapping_def / entry_def / helper_simple_def / helper_compund_def, Klassen: MappingMethodCS, MappingQueryCS, ModulePropertyCS</b>
 }
 </pre>
 
