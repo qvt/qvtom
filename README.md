@@ -45,7 +45,7 @@ interface ISink(
     <b>&lt;830&gt; - declarations: mapping_decl / helper_decl, Klassen: MappingRuleCS, MappingDeclarationCS (with setBlackbox(true));</b>
 }
 <b>AST: ModuleInterfaceCS[methods = ..., moduleHeader = ..., metamodels = ModelTypes aus Parametern]</b>
-</b>CST: ModuleInterface<b>
+<b>CST: ModuleInterface</b>
 
  
 module Sink mexport ISink
