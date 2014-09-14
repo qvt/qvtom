@@ -62,65 +62,65 @@
 <td><strong>&lt;n&gt;</strong></td>
 </tr>
 </tbody>
-</table><pre><code>modeltype PCM uses 'http://sdq.ipd.uka.de/PalladioComponentModel/5.0';
-modeltype PCM_ALLOC uses 'http://sdq.ipd.uka.de/PalladioComponentModel/Allocation/5.0';
-modeltype PCM_REP uses 'http://sdq.ipd.uka.de/PalladioComponentModel/Repository/5.0';
+</table><pre>modeltype PCM uses <em>'http://sdq.ipd.uka.de/PalladioComponentModel/5.0'</em>;
+modeltype PCM_ALLOC uses <em>'http://sdq.ipd.uka.de/PalladioComponentModel/Allocation/5.0'</em>;
+modeltype PCM_REP uses <em>'http://sdq.ipd.uka.de/PalladioComponentModel/Repository/5.0'</em>;
 
-compilation_environment "Commons";
-  **CST: CompilationEnvironmentCS[uriCS = "Commons"] &lt;547&gt;**
-compilation_environment "EventChannelMiddlewareRegistry";
-compilation_environment "EventDistribution";
-compilation_environment "EventFilter";
+compilation_environment <em>"Commons"</em>;
+<b>CST: CompilationEnvironmentCS[uriCS = "Commons"] </b>
+compilation_environment <em>"EventChannelMiddlewareRegistry"</em>;
+compilation_environment <em>"EventDistribution"</em>;
+compilation_environment <em>"EventFilter"</em>;
 ...
 
 interface ISink( 
     inout pcmAllocation : PCM_ALLOC,
-    **CST: InterfaceInOutParamCS[param = ParameterDeclarationCS[simpleNameCS = "pcmAllocation", typeSpecCS = PCM_ALLOC, directionKind = inout]]**
-    **AST: InterfaceRestrictionParameter[param = VarParameter[parsed by original parser]]**
+    <b>CST: InterfaceInOutParamCS[param = ParameterDeclarationCS[simpleNameCS = "pcmAllocation", typeSpecCS = PCM_ALLOC, directionKind = inout]]</b>
+    <b>AST: InterfaceRestrictionParameter[param = VarParameter[parsed by original parser]]</b>
     inout pcmSystem : PCM_SYS, 
     inout pcmRepository : PCM_REP,
     in middlewareRepository : PCM_REP;
-
+    
     in PCM_ALLOC[Allocation]
-      **CST: InterfaceRestrictionParamCS[param = PCM_ALLOC, classes = {Allocation::TypeSpecCS}, packages = {}] &lt;780&gt;**
-      **AST: InterfaceRestrictionParameter**
+      <b>CST: InterfaceRestrictionParamCS[param = PCM_ALLOC, classes = {Allocation::TypeSpecCS}, packages = {}] &lt;780&gt;</b>
+      <b>AST: InterfaceRestrictionParameter</b>
 )
-  **AST: InterfaceParamsCS[…] &lt;680&gt;**
-  **AST: ModuleHeaderCS[pathNameCS="ISink", interfaceInOutParamsCS=..., interfaceRestrictionParamsCS=...] &lt;581&gt;**
+  <b>AST: InterfaceParamsCS[…] </b>
+  <b>AST: ModuleHeaderCS[pathNameCS="ISink", interfaceInOutParamsCS=..., interfaceRestrictionParamsCS=...] &lt;581&gt;</b>
 {
     mapping Sink_createSinkOperationProvidedRole(sinkComponent : pcm::repository::RepositoryComponent,
                                                  operationInterface : pcm::repository::OperationInterface) : pcm::repository::OperationProvidedRole;
-    **&lt;830&gt; - declarations: mapping_decl / helper_decl, Klassen: MappingRuleCS, MappingDeclarationCS (with setBlackbox(true));**
+    <b>&lt;830&gt; - declarations: mapping_decl / helper_decl, Klassen: MappingRuleCS, MappingDeclarationCS (with setBlackbox(true));</b>
 }
-**AST: ModuleInterfaceCS[methods = ..., moduleHeader = ..., metamodels = ModelTypes aus Parametern]**
-**CST: ModuleInterface**
+<b>AST: ModuleInterfaceCS[methods = ..., moduleHeader = ..., metamodels = ModelTypes aus Parametern]</b>
+<b>CST: ModuleInterface</b>
 
-
+ 
 module Sink mexport ISink
-  **AST: ModuleHeaderCS, ExportCS[pathNameCS = "ISink"] &lt;581&gt;**
+  <b>AST: ModuleHeaderCS, ExportCS[pathNameCS = "ISink"] &lt;581&gt;</b>
 {
     mimport ISEFFRegistry;  
     mimport ISEFFUtil;
     mimport ICommons;
     mimport IOperationSignatureRegistry;
-
+        
     mapping Sink_createSinkOperationProvidedRole(sinkComponent : pcm::repository::RepositoryComponent,
                                                  operationInterface : pcm::repository::OperationInterface) : pcm::repository::OperationProvidedRole {
-            entityName := operationInterface.entityName+'OperationProvidedRole'+Commons_getUniqueElementNameSuffix();
+            entityName := operationInterface.entityName+<em>'OperationProvidedRole'</em>+Commons_getUniqueElementNameSuffix();
             providingEntity_ProvidedRole := sinkComponent;
             providedInterface__OperationProvidedRole := operationInterface;
     }
-
-    **&lt;851&gt; - implementations of mapping/helper methods: mapping_def / entry_def / helper_simple_def / helper_compund_def, Klassen: MappingMethodCS, MappingQueryCS, ModulePropertyCS**
+    
+    <b>&lt;851&gt; - implementations of mapping/helper methods: mapping_def / entry_def / helper_simple_def / helper_compund_def, Klassen: MappingMethodCS, MappingQueryCS, ModulePropertyCS</b>
 }
-</code></pre>
+</pre>
 
 <h2>
 <a name="changes-to-the-grammar-qvtoparsergi" class="anchor" href="#changes-to-the-grammar-qvtoparsergi"><span class="octicon octicon-link"></span></a>Changes to the grammar QVTOParser.gi</h2>
 
-<pre><code>%Globals
+<pre>%Globals
     /.  
-    [...]
+    <em>[...]</em>
     import org.eclipse.m2m.internal.qvt.oml.cst.ModuleHeaderCS;
     import org.eclipse.m2m.internal.qvt.oml.cst.MappingMethodCS;
     import org.eclipse.m2m.internal.qvt.oml.cst.InterfaceInOutParamCS;
@@ -130,7 +130,7 @@ module Sink mexport ISink
 %End
 
 %KeyWords
-    [...]
+    <em>[...]</em>
     module
     interface
     mimport
@@ -141,30 +141,30 @@ module Sink mexport ISink
 
 
 %Rules
-    [...]
+    <em>[...]</em>
     unit_element -&gt; compilation_env
-
+    
     compilation_env ::= compilation_environment uri ';'
-
+    
     unit_element -&gt; module_def
     unit_element -&gt; interface_def
-
+    
     module_def ::= module_h mexport exportList '{' importList declarationList '}' semicolonOpt
     module_h ::= module qualifiedNameCS
 
     exportList ::= qualifiedNameCS
     exportList ::= exportList ',' qualifiedNameCS
-
+    
     fullImport ::= mimport qualifiedNameCS ';'
     importList ::= %empty
     importList ::= importList fullImport
-
+    
     interface_def ::= interface_h '{' interfaceList '}' semicolonOpt
     interface_h ::= interface qualifiedNameCS interfaceParams
 
     interfaceParams ::= '(' interfaceInOutParamList ')'
     interfaceParams ::= '(' interfaceInOutParamList ';' interfaceRestrictionList ')'
-
+    
     interfaceInOutParamList ::= interfaceInOutParamList ',' interfaceInOutParam
     interfaceInOutParamList ::= interfaceInOutParam
 
@@ -172,40 +172,39 @@ module Sink mexport ISink
     interfaceRestrictionList ::= interfaceRestrictionParam
     interfaceRestrictionParam ::= param_direction typespec '[' typespecList ']'
     interfaceRestrictionParam ::= param_direction typespec '[' typespecList ']' '{' typespecList '}'
-
+        
     paramWithDirection ::= param_direction IDENTIFIER ':' typespec
-
+        
     interfaceInOutParam ::= paramWithDirection
-
+        
     typespecList ::= %empty
     typespecList ::= typespec
     typespecList ::= typespecList ',' typespec
-
-    -- returns a MappingRuleCS
+    
+    <em>-- returns a MappingRuleCS</em>
     interfaceElement -&gt; mapping_decl
-    -- returns a MappingQueryCS
+    <em>-- returns a MappingQueryCS</em>
     interfaceElement -&gt; helper_decl
-
+    
     interfaceList ::= interfaceList interfaceElement
     interfaceList ::= interfaceElement
 
-    -- return a MappingMethodCS
+    <em>-- return a MappingMethodCS</em>
     declarationItem -&gt; mapping_def
     declarationItem -&gt; entry_def
-    -- return a MappingQueryCS-&gt;MappingMethodCS
+    <em>-- return a MappingQueryCS-&gt;MappingMethodCS</em>
     declarationItem -&gt; helper_simple_def
     declarationItem -&gt; helper_compound_def
-
+    
     declarationItem -&gt; _property
 
     declarationList ::= declarationList declarationItem
     declarationList ::= declarationItem
-
-    -- changed code ---
+    
+    <em>-- changed code ---</em>
     scoped_identifier ::= scoped_identifier2
     scoped_identifier2 ::= IDENTIFIER '@' IDENTIFIER
-%End
-</code></pre>
+%End</pre>
 
 <h2>
 <a name="the-new-metamodels" class="anchor" href="#the-new-metamodels"><span class="octicon octicon-link"></span></a>The new metamodels</h2>
@@ -213,12 +212,12 @@ module Sink mexport ISink
 <h3>
 <a name="ast" class="anchor" href="#ast"><span class="octicon octicon-link"></span></a>AST</h3>
 
-<p><img src="http://qvt.github.io/qvtom/images/metamodelAST.png" alt="AST metamodel"></p>
+<p><a href="http://dwerle.github.io/qvtom/images/QVTOperationalAST.png"><img src="http://dwerle.github.io/qvtom/images/QVTOperationalAST_thumb.png" alt="AST metamodel"></a></p>
 
 <h3>
 <a name="cst" class="anchor" href="#cst"><span class="octicon octicon-link"></span></a>CST</h3>
 
-<p><img src="http://qvt.github.io/qvtom/images/metamodelCST.png" alt="CST metamodel"></p>
+<p><a href="http://dwerle.github.io/qvtom/images/QVTOperationalCST.png"><img src="http://dwerle.github.io/qvtom/images/QVTOperationalCST_thumb.png" alt="CST metamodel"></a></p>
 
 <h2>
 <a name="how-to-include-new-elements-into-the-cstast" class="anchor" href="#how-to-include-new-elements-into-the-cstast"><span class="octicon octicon-link"></span></a>How to include new elements into the CST/AST</h2>
@@ -301,6 +300,185 @@ module Sink mexport ISink
 <li>Implementation of a module, exports at least one interface and has to implement at least the methods of the exported interface(s).</li>
 </ul>
 </li>
+</ul><h2>
+<a name="orgeclipsem2minternalqvtomlcompilerqvtocompiler" class="anchor" href="#orgeclipsem2minternalqvtomlcompilerqvtocompiler"><span class="octicon octicon-link"></span></a>org.eclipse.m2m.internal.qvt.oml.compiler.QVTOCompiler</h2>
+
+<p>The entry point for the changes from QVTo to QVTom start in <code>org.eclipse.m2m.internal.qvt.oml.compiler.QVTOCompiler</code> in the method <code>doCompileQVTom</code>, which replaces <code>doCompileQVTo</code>. For the compilation of QVTom in multiple files the following stages are performed:</p>
+
+<ol>
+<li>Parse all files that are declared as part of the "Compilation Environment" in the file.</li>
+<li>Create <code>ModuleInterfaces</code> (<code>createModuleInterfaceStubs</code>) for every CST, i.e. start the visitor (<code>QVTOperationalVisitorCS</code>) for every CST (every file).</li>
+<li>Resolve all cross references between modules (<code>crossReferenceModules</code>). Copy all references to every module interface (the elements that are used to resolve calls to methods of foreign modules) between each two environments of <code>CSTParseResult</code>s (of type <code>QVTOperationalFileEnv</code>).</li>
+<li>Compile (CST -&gt; AST) every imported file.</li>
+<li>Perform a transformation of the resulting QVTom-ASTs to a QVTO-AST which can be interpreted/compiled with the default interpreter/compiler.</li>
+</ol><h2>
+<a name="orgeclipsem2minternalqvtomlqvtom2qvtoqvtom2qvtocstransformation" class="anchor" href="#orgeclipsem2minternalqvtomlqvtom2qvtoqvtom2qvtocstransformation"><span class="octicon octicon-link"></span></a>org.eclipse.m2m.internal.qvt.oml.qvtom2qvto.QVTom2QVToCSTransformation</h2>
+
+<p>The linking of method calls etc. is already performed during the compilation. For the transformation from QVTom to QVTo the following steps have to be performed:</p>
+
+<ol>
+<li>Copy all methods from the module interfaces and module implementations to a new <code>OperationalTransformation</code>.</li>
+<li>Copy in/out/inout parameters to the new transformation.</li>
+<li>Create properties from the modules in the new transformation.</li>
+</ol><h2>
+<a name="changes-to-orgeclipsem2minternalqvtomlastparserqvtoperationalvisitorcs" class="anchor" href="#changes-to-orgeclipsem2minternalqvtomlastparserqvtoperationalvisitorcs"><span class="octicon octicon-link"></span></a>Changes to org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS</h2>
+
+<p>Was modified to be able to handle the new syntax elements.</p>
+
+<h3>
+<a name="orgeclipsem2minternalqvtomlastparserqvtoperationalvisitorcslookupmodelparametersimplenamecs-directionkind-qvtoperationalenv" class="anchor" href="#orgeclipsem2minternalqvtomlastparserqvtoperationalvisitorcslookupmodelparametersimplenamecs-directionkind-qvtoperationalenv"><span class="octicon octicon-link"></span></a>org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS.lookupModelParameter(SimpleNameCS, DirectionKind, QvtOperationalEnv)</h3>
+
+<p>Allows the referencing of <code>ModelParameter</code>s that are declared in the interface, i.e. the parsed parameters from the <code>ModuleInterface</code> which are <code>InterfaceInOutParameter</code>s are made referenceable.</p>
+
+<h3>
+<a name="orgeclipsem2minternalqvtomlastparserqvtoperationalvisitorcsgenoperationcallexp" class="anchor" href="#orgeclipsem2minternalqvtomlastparserqvtoperationalvisitorcsgenoperationcallexp"><span class="octicon octicon-link"></span></a>org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS.genOperationCallExp(…)</h3>
+
+<p>If no local mapping can be found, check if a fitting method can be found in an imported module. For this purpose traverse upwards in the environment hierarchy until a fitting environment (of type <code>QvtOperationalFileEnv</code>) has been found and check if one of the imported interfaces implements a fitting method.</p>
+
+<h3>
+<a name="orgeclipsem2minternalqvtomlastparserqvtoperationalvisitorcsvisitmappingdeclarationcsmappingmethodcs-qvtoperationalmoduleenv-imperativeoperation" class="anchor" href="#orgeclipsem2minternalqvtomlastparserqvtoperationalvisitorcsvisitmappingdeclarationcsmappingmethodcs-qvtoperationalmoduleenv-imperativeoperation"><span class="octicon octicon-link"></span></a>org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS.visitMappingDeclarationCS(MappingMethodCS, QvtOperationalModuleEnv, ImperativeOperation)</h3>
+
+<p>Check the visibility of the context types of the mappings.</p>
+
+<h3>
+<a name="orgeclipsem2minternalqvtomlastparserqvtoperationalvisitorcsvisitresolveinexpcsresolveinexpcs-qvtoperationalenv" class="anchor" href="#orgeclipsem2minternalqvtomlastparserqvtoperationalvisitorcsvisitresolveinexpcsresolveinexpcs-qvtoperationalenv"><span class="octicon octicon-link"></span></a>org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS.visitResolveInExpCS(ResolveInExpCS, QvtOperationalEnv)</h3>
+
+<p>Allow the resolution of methods in the same <code>ModuleImplementation</code> or in imported interfaces.</p>
+
+<h2>
+<a name="new-methods-for-modularity" class="anchor" href="#new-methods-for-modularity"><span class="octicon octicon-link"></span></a>New methods for modularity</h2>
+
+<h3>
+<a name="orgeclipsem2minternalqvtomlastparserqvtoperationalvisitorcsregistermodeltypesmodule-elist-qvtoperationalfileenv" class="anchor" href="#orgeclipsem2minternalqvtomlastparserqvtoperationalvisitorcsregistermodeltypesmodule-elist-qvtoperationalfileenv"><span class="octicon octicon-link"></span></a>org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS.registerModelTypes(Module, EList, QvtOperationalFileEnv)</h3>
+
+<p>Helper method that is used by <code>visitModuleInterface</code>and <code>visitModuleImplementation</code>. Parses the used <code>ModelType</code>s (<code>visitModelTypeCS</code>) and references them in the created Module (<code>getUsedModelType().add(...)</code>), adds them as types to the module (<code>.getEClassifiers().add(...)</code>) and register them in the environment.</p>
+
+<h3>
+<a name="orgeclipsem2minternalqvtomlastparserqvtoperationalvisitorcsvisitmoduleinterfacemoduleinterfacecs-qvtoperationalfileenv" class="anchor" href="#orgeclipsem2minternalqvtomlastparserqvtoperationalvisitorcsvisitmoduleinterfacemoduleinterfacecs-qvtoperationalfileenv"><span class="octicon octicon-link"></span></a>org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS.visitModuleInterface(ModuleInterfaceCS, QvtOperationalFileEnv)</h3>
+
+<p>Visitor method for <code>ModuleInterface</code>s, comparable to the visitor methods for methods.
+1. Register <code>ModelType</code>s in the environment.
+2. Register the <code>ModelInterface</code> in the environment.
+3. Visit and reference <code>InOutParameters</code>and <code>RestrictionParameter</code>s.
+4. Visit all <code>MappingDeclaration</code>s for methods and reference results.</p>
+
+<h3>
+<a name="orgeclipsem2minternalqvtomlastparserqvtoperationalvisitorcsvisitinoutparamscsmoduleinterfacecs-qvtoperationalfileenv" class="anchor" href="#orgeclipsem2minternalqvtomlastparserqvtoperationalvisitorcsvisitinoutparamscsmoduleinterfacecs-qvtoperationalfileenv"><span class="octicon octicon-link"></span></a>org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS.visitInOutParamsCS(ModuleInterfaceCS, QvtOperationalFileEnv)</h3>
+
+<p>Visitor methods for <code>InOutParameter</code>s.</p>
+
+<h1>
+<a name="meta-model-visibility-validation" class="anchor" href="#meta-model-visibility-validation"><span class="octicon octicon-link"></span></a>Meta model visibility validation</h1>
+
+<p>The validation of the meta model visibility is realized in two new classes which are explained below. The entry point into the validation can be found in two places:</p>
+
+<ul>
+<li><code>org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS.validateMethodMetaModelVisibility(ModuleImplementation, QvtOperationalEnv)</code></li>
+<li><code>QvtOperationalVisitorCS.visitMappingDeclaration(…)</code></li>
+</ul><h2>
+<a name="oclrestrictedtypevisitor" class="anchor" href="#oclrestrictedtypevisitor"><span class="octicon octicon-link"></span></a>OCLRestrictedTypeVisitor</h2>
+
+<p>Is created with a <code>TypeRestrictionSet</code>or a <code>ModuleImplementation</code>. When passing a <code>ModuleImplementation</code> the appropriate <code>.buildFromInterface</code> method of the <code>TypeRestrictionSet</code> is called.</p>
+
+<p>The visitor itself extends <code>OCLAbstractVisitor</code>. Every possible violation of the meta model visibility can be checked and annotated with an appropriate error or warning if necessary.</p>
+
+<h2>
+<a name="typerestrictionset" class="anchor" href="#typerestrictionset"><span class="octicon octicon-link"></span></a>TypeRestrictionSet</h2>
+
+<p>Represents a set of types and packages that are accessible for a particular direction (<code>DirectionKind</code>) and possibly for a particular extent.</p>
+
+<h1>
+<a name="qvtom-environments" class="anchor" href="#qvtom-environments"><span class="octicon octicon-link"></span></a>QVTo(m)-Environments</h1>
+
+<p>Environments are created but not mandatorily persited. They can be used solely for the <code>QVTOperationalVisitorCS</code> and discarded afterwards.</p>
+
+<ul>
+<li>
+<code>org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS.visitObjectExpCS(ObjectExpCS, QvtOperationalEnv, boolean)</code> -- creates a temporary environment.</li>
+<li>
+<code>org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS.visitModuleImplementation(ModuleImplementationCS, QvtOperationalFileEnv)</code> -- create a temporary environent for the module so the parsed methods from different modules in the same file context do not interfere.</li>
+</ul><h2>
+<a name="orgeclipsem2minternalqvtomlastenvqvtoperationalenv" class="anchor" href="#orgeclipsem2minternalqvtomlastenvqvtoperationalenv"><span class="octicon octicon-link"></span></a>org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnv</h2>
+
+<ul>
+<li>
+<code>org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnv.registerMappingOperation(MappingOperation, boolean)</code>
+
+<ul>
+<li>Copy of the equally named method without the boolean parameter. Makes it possible to prevent the registration in the parent environment.</li>
+</ul>
+</li>
+<li>Additional attributes for the <code>ModuleImplementation</code>s and <code>ModuleInterface</code>s with respective getters and setters.</li>
+<li>Additional attribute of type <code>EntryOperation</code> which represents the entry point for the execution of the transformation.</li>
+</ul><h2>
+<a name="orgeclipsem2minternalqvtomlastenvqvtoperationalmoduleenv-orgeclipsem2minternalqvtomlastenvqvtoperationalfileenv" class="anchor" href="#orgeclipsem2minternalqvtomlastenvqvtoperationalmoduleenv-orgeclipsem2minternalqvtomlastenvqvtoperationalfileenv"><span class="octicon octicon-link"></span></a>org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalModuleEnv, org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalFileEnv</h2>
+
+<ul>
+<li>Concrete subtypes which allow the getting/setting of <code>ModuleImplementation</code>s and <code>ModuleInterface</code>s.</li>
+</ul><h1>
+<a name="import-mechanism-of-qvto-and-qvtom" class="anchor" href="#import-mechanism-of-qvto-and-qvtom"><span class="octicon octicon-link"></span></a>Import mechanism of QVTo and QVTom</h1>
+
+<p>It is already possible to connect multiple transformations by an import mechanism in QVTo. Details for this mechanism can be found in the QVT standard.</p>
+
+<h1>
+<a name="workflow-of-the-qvtom-parser-and-interpreter" class="anchor" href="#workflow-of-the-qvtom-parser-and-interpreter"><span class="octicon octicon-link"></span></a>Workflow of the QVTo(m) parser and interpreter</h1>
+
+<p><img src="http://dwerle.github.io/qvtom/images/Workflow.png"></p>
+
+<p>Image after <em>Erweitern eines Code-Editors unter Eclipse um neue Sprachkonzepte</em> by Ivayla Partalina.</p>
+
+<h2>
+<a name="pluginspackagesclasses" class="anchor" href="#pluginspackagesclasses"><span class="octicon octicon-link"></span></a>Plugins/Packages/Classes</h2>
+
+<ul>
+<li>org.eclipse.m2m.qvt.oml
+
+<ul>
+<li>org.eclipse.m2m.internal.qvt.oml.ast.env
+
+<ul>
+<li>definiert die benutzten Environments</li>
+<li>type checking</li>
+</ul>
+</li>
+<li>org.eclipse.m2m.internal.qvt.oml.ast.parser
+
+<ul>
+<li>QvtOperationalVisitorCS: Konvertierung von CST zu AST</li>
+<li>OCLRestrictedTypeVisitor / TypeRestrictionSet / ExtentClassifier / ExtentPackage – Überprüfung von Metamodell Sichtbarkeiten (für ECore)</li>
+<li>OCLAbstractVisitor – Abstrakte Implementierung von org.eclipse.m2m.internal.qvt.oml.expressions.util.QVTOperationalVisitor, als Basis für OCLRestrictedTypeVisitor</li>
+<li>QvtOperationalParser – Aufsetzen des Root-Elements für das Parseergebnis (UnitCS)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>org.eclipse.m2m.internal.qvt.oml.compiler
+
+<ul>
+<li>QVTOCompiler – Einstieg in die Kompilierung. </li>
+</ul>
+</li>
+<li>org.eclipse.m2m.internal.qvt.oml.evaluator
+
+<ul>
+<li>QvtOperationalEvaluationVisitor / QvtOperationalEvaluationVisitorImpl – Interpreter Schnittstelle + Implementierung, Anpassung an ModulImplementierungen + -Interfaces</li>
+</ul>
+</li>
+<li>org.eclipse.m2m.internal.qvt.oml.qvtom2qvto
+
+<ul>
+<li>QVTom2QVToCSTransformation – Transformation von QVTom nach QVTo (um QVTo-Interpreter zu benutzen)</li>
+</ul>
+</li>
+<li>org.eclipse.m2m.internal.qvt.oml.cst.parser
+
+<ul>
+<li>AbstractQVTParser – Methoden, die aus dem Parser (LPG) aufgerufen werden.</li>
+</ul>
+</li>
+<li>org.eclipse.m2m.qvt.oml.editor.ui</li>
+<li>org.eclipse.m2m.qvt.oml.runtime</li>
+<li>org.eclipse.m2m.qvt.oml.runtime.ui</li>
 </ul><h1>
 <a name="example-for-parsing-and-environments" class="anchor" href="#example-for-parsing-and-environments"><span class="octicon octicon-link"></span></a>Example for parsing and environments</h1>
 
