@@ -316,21 +316,21 @@ Image after <em>Erweitern eines Code-Editors unter Eclipse um neue Sprachkonzept
 ### Plugins/Packages/Classes
 * org.eclipse.m2m.qvt.oml
   * org.eclipse.m2m.internal.qvt.oml.ast.env
-    * definiert die benutzten Environments
+    * defines the used environments
     * type checking
   * org.eclipse.m2m.internal.qvt.oml.ast.parser
-    * QvtOperationalVisitorCS: Konvertierung von CST zu AST
-    * OCLRestrictedTypeVisitor / TypeRestrictionSet / ExtentClassifier / ExtentPackage – Überprüfung von Metamodell Sichtbarkeiten (für ECore)
-    * OCLAbstractVisitor – Abstrakte Implementierung von org.eclipse.m2m.internal.qvt.oml.expressions.util.QVTOperationalVisitor<Boolean>, als Basis für OCLRestrictedTypeVisitor
-    * QvtOperationalParser – Aufsetzen des Root-Elements für das Parseergebnis (UnitCS)
+    * QvtOperationalVisitorCS: conversion from CST to AST
+    * OCLRestrictedTypeVisitor / TypeRestrictionSet / ExtentClassifier / ExtentPackage – meta model visibility validation
+    * OCLAbstractVisitor – abstract implementation of QVTOperationalVisitor<Boolean>, base for OCLRestrictedTypeVisitor
+    * QvtOperationalParser – set up the root element for the parse result (UnitCS)
 * org.eclipse.m2m.internal.qvt.oml.compiler
-  * QVTOCompiler – Einstieg in die Kompilierung. 
+  * QVTOCompiler – entry point into the compilation
 * org.eclipse.m2m.internal.qvt.oml.evaluator
-  * QvtOperationalEvaluationVisitor / QvtOperationalEvaluationVisitorImpl – Interpreter Schnittstelle + Implementierung, Anpassung an ModulImplementierungen + -Interfaces
+  * QvtOperationalEvaluationVisitor / QvtOperationalEvaluationVisitorImpl – interpreter interface and impkementation. adapted to support module implementations and interfaces
 * org.eclipse.m2m.internal.qvt.oml.qvtom2qvto
-  * QVTom2QVToCSTransformation – Transformation von QVTom nach QVTo (um QVTo-Interpreter zu benutzen)
+  * QVTom2QVToCSTransformation – transformation from QVTom to QVTo (to reuse the QVTo interpreter)
 * org.eclipse.m2m.internal.qvt.oml.cst.parser
-  * AbstractQVTParser – Methoden, die aus dem Parser (LPG) aufgerufen werden.
+  * AbstractQVTParser – Methods that are called from the parser (LPG).
 * org.eclipse.m2m.qvt.oml.editor.ui
 * org.eclipse.m2m.qvt.oml.runtime
 * org.eclipse.m2m.qvt.oml.runtime.ui
